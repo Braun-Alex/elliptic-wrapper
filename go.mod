@@ -1,3 +1,3 @@
-module Elliptic_Wrapper
+module elliptic-wrapper
 
 go 1.19
