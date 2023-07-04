@@ -2,9 +2,12 @@ package ec
 
 import (
 	"crypto/elliptic"
+	"encoding/hex"
 	"fmt"
 	"math/big"
 )
+
+const HexEncoding = 16
 
 type ElCPoint struct {
 	X *big.Int
@@ -53,15 +56,17 @@ func ScalarMult(k big.Int, a ElCPoint) ElCPoint {
 }
 
 func ElCPointToString(point ElCPoint) string {
-	return string(elliptic.MarshalCompressed(elliptic.P521(), point.X, point.Y))
+	return hex.EncodeToString(elliptic.MarshalCompressed(elliptic.P521(), point.X, point.Y))
 }
 
 func StringToElCPoint(s string) ElCPoint {
-	return ElCPointGen(elliptic.UnmarshalCompressed(elliptic.P521(), []byte(s)))
+	bytes, err := hex.DecodeString(s)
+	if err != nil {
+		panic("Elliptic curve point could not be decoded")
+	}
+	return ElCPointGen(elliptic.UnmarshalCompressed(elliptic.P521(), bytes))
 }
 
 func PrintElCPoint(point ElCPoint) {
-	const HexEncoding = 16
-	fmt.Printf("Elliptic curve point has such coordinates: \n%s\n%s\n",
-		point.X.Text(HexEncoding), point.Y.Text(HexEncoding))
+	fmt.Printf("Compressed elliptic curve point is %s\n", ElCPointToString(point))
 }
