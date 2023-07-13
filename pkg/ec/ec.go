@@ -21,6 +21,12 @@ func BasePointGGet() ElCPoint {
 	return ElCPointGen(ellipticSecp521r1Params.Gx, ellipticSecp521r1Params.Gy)
 }
 
+// Returning order of base point G on the elliptic curve secp521r1
+
+func BasePointGOrderGet() *big.Int {
+        return elliptic.P521().Params().N
+}
+
 // Returning ElCPoint structure wrapped in coordinates
 
 func ElCPointGen(x, y *big.Int) ElCPoint {
