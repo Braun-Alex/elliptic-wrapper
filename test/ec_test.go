@@ -2,8 +2,7 @@ package test
 
 import (
 	"crypto/rand"
-	"elliptic-wrapper/pkg/ec"
-	"fmt"
+	"github.com/Braun-Alex/elliptic-wrapper/pkg/ec"
 	"math/big"
 	"testing"
 )
@@ -85,7 +84,6 @@ func TestIsElCPointOnTheCurve(t *testing.T) {
 	if !ec.IsOnCurveCheck(ellipticCurvePoint) {
 		t.Error("Elliptic curve point is not on the elliptic curve")
 	}
-	fmt.Println(ellipticCurvePoint.X.Text(16), ellipticCurvePoint.Y.Text(16))
 }
 
 func TestEncodingOfElCPoint(t *testing.T) {
